@@ -15,6 +15,6 @@ class Post < ApplicationRecord
   # Method which returns the 5 most recent comments for a given post.
 
   def find_comments
-    Comment.where(post: self).order(created_at: :desc).limit(5)
+    comments.order('created_at Desc').limit(5)
   end
 end

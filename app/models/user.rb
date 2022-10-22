@@ -6,6 +6,6 @@ class User < ApplicationRecord
   # Method that returns the 3 most recent posts for a given user.
 
   def find_posts
-    Post.where(author: self).order(updated_at: :desc).first(3)
+    Post.order(created_at: :desc).limit(3)
   end
 end
