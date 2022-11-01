@@ -16,7 +16,6 @@ RSpec.describe 'Posts', type: :request do
       end
     end
   end
-
   context 'Correct template' do
     describe 'GET posts' do
       it 'renders the index template' do
