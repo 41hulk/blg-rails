@@ -33,6 +33,8 @@ gem 'rspec-rails'
 
 gem 'devise'
 
+gem "letter_opener"
+
 gem 'rails-controller-testing'
 
 # Use Redis adapter to run Action Cable in production
