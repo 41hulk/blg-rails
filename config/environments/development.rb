@@ -37,34 +37,59 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  
 
   config.action_mailer.perform_caching = false
+
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+  config.action_mailer.perform_deliveries = true
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
   # Raise exceptions for disallowed deprecations.
   config.active_support.disallowed_deprecation = :raise
+  config.action_mailer.raise_delivery_errors = true
+  # change to true to allow email to be sent during development
 
+  # smtp
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = { :address => '127.0.0.1', :port => 1025 }
+
+  # Print deprecation notices to the Rails logger.
+  config.active_support.deprecation = :log
+  # Raise exceptions for disallowed deprecations.
+  config.active_support.disallowed_deprecation = :raise
   # Tell Active Support which deprecation messages to disallow.
   config.active_support.disallowed_deprecation_warnings = []
-
   # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load
-
   # Highlight code that triggered database queries in logs.
   config.active_record.verbose_query_logs = true
-
   # Suppress logger output for asset requests.
   config.assets.quiet = true
-
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
 
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
+  # LetterOpener.configure do |config|
+  #   # To overrider the location for message storage.
+  #   # Default value is `tmp/letter_opener`
+  #   config.location = Rails.root.join('tmp', 'my_mails')
 
+  #   # To render only the message body, without any metadata or extra containers or styling.
+  #   # Default value is `:default` that renders styled message with showing useful metadata.
+  #   config.message_template = :light
+
+  #   # To change default file URI scheme you can provide `file_uri_scheme` config.
+  #   # It might be useful when you use WSL (Windows Subsystem for Linux) and default
+  #   # scheme doesn't work for you.
+  #   # Default value is blank
+  #   config.file_uri_scheme = 'file://///wsl$/Ubuntu-18.04'
+  # end
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
 end
