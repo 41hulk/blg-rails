@@ -1,22 +1,21 @@
 require 'rails_helper'
 
 RSpec.describe Like, type: :model do
-  subject(:like) do
-    user = User.create(name: 'Maria', photo: '', bio: 'Teacher from Brazil.')
-    new_post = Post.create(author: user, title: 'Hello 1 (Tom)', text: 'This is my first post')
-    Like.new(post: new_post, author: user)
+  subject do
+    Like.new(user_id: 1, post_id: 1)
   end
 
-  before { like.save }
+  before { subject.save }
 
-  describe 'validations' do
-    it 'does not validate without an author' do
-      like.author = nil
-      expect(comment).to_not be_valid
+  context 'user_id' do
+    it 'should be 1' do
+      expect(subject.user_id).to eql(1)
     end
+  end
 
-    it 'should update the likes counter' do
-      expect(like.send(:update_likes_counter)).to be_valid
+  context 'post_id' do
+    it 'should be 1' do
+      expect(subject.post_id).to eql(1)
     end
   end
 end

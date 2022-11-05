@@ -1,22 +1,23 @@
 require 'rails_helper'
-
 RSpec.describe Comment, type: :model do
-  subject(:comment) do
-    user = User.create(name: 'Maria', photo: '', bio: 'Teacher from Brazil.')
-    new_post = Post.create(author: user, title: 'Hello 1 (Tom)', text: 'This is my first post')
-    Comment.new(author: user, post: new_post, text: 'hey')
+  # tests go here
+  subject do
+    Comment.new(text: 'Lorem ipsum, ipsum lorem')
   end
 
-  before { comment.save }
+  before { subject.save }
 
-  describe 'validations' do
-    it 'does not validate without an author' do
-      comment.author = nil
-      expect(comment).to_not be_valid
-    end
+  it 'text should be Lorem ipsum, ipsum lorem' do
+    expect(subject.text).to match('Lorem ipsum, ipsum lorem')
+  end
 
-    it 'should update the comments counter' do
-      expect(comment.send(:update_comments_counter)).to be_valid
-    end
+  it 'text should be present' do
+    subject.text = nil
+    expect(subject).to_not be_valid
+  end
+
+  it 'text length should be less than 300 characters' do
+    subject.text = 'abcdefgh' * 108
+    expect(subject).to_not be_valid
   end
 end

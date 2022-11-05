@@ -1,1 +1,25 @@
-<h1>Here is a list of all users</h1>
+<div id="show-user">
+  <%= render @user %>
+  <div class="user-bio">
+    <p class="bio-title">Bio:</p>
+    <p class="bio-information"><%= @user.bio %></p>
+  </div>
+  <ul class="post-ul">
+  <% @posts.each do |post| %>
+      <%= link_to(user_post_url(id: post.id, user_id: @user.id), :class => "link-pages") do %>
+        <%= render post %>
+        <ul class="comments-ul">
+          <% if comments?(post.comments) %>
+            <%= render partial: "comments/comment", collection: post.recent_comments %>
+          <% else %>
+            <p>No comments available</p>
+          <% end %>
+        </ul>
+      <% end %>
+    <% end %>
+  </ul>
+  <%= link_to user_posts_url(user_id: @user.id) do %>
+    <button class="post-button">See all posts</button>
+  <% end %>
+</div>
+
