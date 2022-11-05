@@ -1,34 +1,63 @@
 require 'rails_helper'
 
-RSpec.describe 'Posts', type: :request do
-  context 'Correct response status' do
-    describe 'GET /index' do
-      it 'returns http success' do
-        get '/users/:user_id/posts'
-        expect(response).to have_http_status(:success)
-      end
+RSpec.describe 'Posts response', type: :request do
+  describe '/users/:user_id/posts' do
+    before(:example) do
+      User.create(
+        id: 1,
+        name: 'Jhon First',
+        photo: 'https://randomuser.me/api/portraits/men/9.jpg',
+        bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+      )
+      get '/users/1/posts'
     end
 
-    describe 'GET /show' do
-      it 'returns http success' do
-        get '/users/:user_id/posts/:id'
-        expect(response).to have_http_status(:success)
-      end
+    it 'get has correct status' do
+      expect(response).to have_http_status(200)
+      expect(response).to have_http_status(:ok)
+    end
+
+    it 'get renders correct template' do
+      expect(response).to render_template(:index)
+    end
+    it 'get renders correct body' do
+      expect(response.body).to include('Pagination')
+    end
+
+    it 'does not render a different template' do
+      expect(response).to_not render_template(:show)
     end
   end
 
-  context 'Correct template' do
-    describe 'GET posts' do
-      it 'renders the index template' do
-        get '/users/:user_id/posts'
-        expect(response).to render_template(:index)
-        expect(response.body).to include('Here is a list of all posts for a given user')
-      end
-      it 'renders the show template' do
-        get '/users/:user_id/posts/:id'
-        expect(response).to render_template(:show)
-        expect(response.body).to include('Here is a post by a user given an id')
-      end
+  describe '/users/:user_id/posts/:id' do
+    before(:example) do
+      User.create(
+        id: 1,
+        name: 'Jhon First',
+        photo: 'https://randomuser.me/api/portraits/men/9.jpg',
+        bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+      )
+      Post.create(title: 'Post-1}',
+                  text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam quis commodo velit.
+        Maecenas quis tortor nec neque ornare pharetra vitae in quam.',
+                  id: 1, user_id: 1)
+      get '/users/1/posts/1'
+    end
+
+    it 'get has correct status' do
+      expect(response).to have_http_status(200)
+      expect(response).to have_http_status(:ok)
+    end
+
+    it 'get renders correct template' do
+      expect(response).to render_template(:show)
+    end
+    it 'get renders correct body' do
+      expect(response.body).to include('Add Comment')
+    end
+
+    it 'does not render a different template' do
+      expect(response).to_not render_template(:new)
     end
   end
 end

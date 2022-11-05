@@ -1,0 +1,111 @@
+:root {
+  --color-alpha: #222;
+  --color-secondary: #808;
+}
+
+/* posts styles */
+.box {
+  position: relative;
+  padding: 5px;
+  border: 2px solid var(--color-alpha);
+}
+
+.box::before,
+.box::after {
+  content: "•";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  font-size: 14px;
+  color: var(--color-secondary);
+  border: 2px solid var(--color-secondary);
+  line-height: 12px;
+  top: 12px;
+  text-align: center;
+  z-index: 50;
+}
+
+.box::before {
+  left: 12px;
+}
+
+.box::after {
+  right: 12px;
+}
+
+.box-inner {
+  position: relative;
+  border: 2px solid var(--color-alpha);
+  padding: 40px;
+}
+
+.box-inner::before,
+.box-inner::after {
+  content: "•";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  font-size: 14px;
+  color: var(--color-secondary);
+  border: 2px solid var(--color-secondary);
+  line-height: 12px;
+  bottom: -2px;
+  text-align: center;
+}
+
+.box-inner::before {
+  left: -2px;
+}
+
+.box-inner::after {
+  right: -2px;
+}
+
+.post-ul {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  flex-wrap: wrap;
+  gap: 35px;
+  margin-bottom: 20px;
+}
+
+.post-container {
+  padding: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.post-number {
+  width: 100%;
+  height: min-content;
+}
+
+.post-description {
+  width: 100%;
+  padding: 12px;
+}
+
+.post-interactions {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  gap: 12px;
+}
+
+#user-posts-container,
+#post-show {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 18px;
+  padding: 0 50px 50px;
+}
+
+@media screen and (min-width: 768px) {
+  .post-container {
+    width: 80%;
+  }
+}
